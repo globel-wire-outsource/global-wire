@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Wire — Compliance Certificates</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- GRAIN OVERLAY -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <svg class="loader-ring" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="36" stroke="#1a1a1a" stroke-width="1"/>
+        <circle class="loader-arc" cx="40" cy="40" r="36" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="226"/>
+      </svg>
+      <div class="loader-gw">GW</div>
+    </div>
+    <p class="loader-name">GLOBAL WIRE</p>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a class="nav-logo" onclick="switchTab('home')" style="cursor:pointer">
+      <span class="logo-mark">GW</span>
+      <span class="logo-wordmark">GLOBAL<em>WIRE</em></span>
+    </a>
+
+    <div class="nav-center" id="navCenter">
+      <button class="nt active" data-tab="home">Home</button>
+      <span class="nt-sep">·</span>
+      <button class="nt" data-tab="services">Services</button>
+      <span class="nt-sep">·</span>
+      <button class="nt" data-tab="booking">Booking</button>
+      <span class="nt-sep">·</span>
+      <button class="nt" data-tab="contact">Contact</button>
+    </div>
+
+    <a href="tel:+27660251763" class="nav-tel">+27 66 025 1763</a>
+
+    <button class="nav-ham" id="navHam" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mdrawer" id="mdrawer">
+    <button class="mdrawer-close" id="mdrawerClose">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="mdrawer-brand">
+      <span class="logo-mark sm">GW</span>
+    </div>
+    <nav class="mdrawer-nav">
+      <button class="mnt" data-tab="home">Home</button>
+      <button class="mnt" data-tab="services">Services</button>
+      <button class="mnt" data-tab="booking">Booking</button>
+      <button class="mnt" data-tab="contact">Contact</button>
+    </nav>
+    <div class="mdrawer-foot">
+      <a href="tel:+27660251763">+27 66 025 1763</a>
+      <a href="mailto:globelwireoutsource@gmail.com">globelwireoutsource@gmail.com</a>
+    </div>
+  </div>
+  <div class="mdrawer-veil" id="mdrawerVeil"></div>
+
+  <!-- PAGES -->
+  <main class="pages" id="pages">
+
+    <!-- ══ HOME ══════════════════════════════════════════════ -->
+    <section class="page active" id="page-home">
+      <div class="hero">
+
+        <div class="hero-deco-line left" aria-hidden="true"></div>
+        <div class="hero-deco-line right" aria-hidden="true"></div>
+
+        <div class="hero-body">
+          <p class="hero-kicker ri" data-d="0">South Africa &nbsp;·&nbsp; Compliance Specialists</p>
+
+          <h1 class="hero-title ri" data-d="80">
+            Precision.<br>
+            <em>Certificates.</em><br>
+            Trust.
+          </h1>
+
+          <div class="hero-rule ri" data-d="200" aria-hidden="true"></div>
+
+          <p class="hero-byline ri" data-d="280">
+            "COC's don't have to be expensive — we offer reliable<br>
+            certificates at the right price."
+          </p>
+
+          <div class="hero-ctas ri" data-d="360">
+            <button class="btn-gold" data-goto="services">Explore Services</button>
+            <button class="btn-line" data-goto="booking">Book a Service</button>
+          </div>
+        </div>
+
+        <div class="hero-foot ri" data-d="440">
+          <div class="hf-item">
+            <span class="hf-num">R350</span>
+            <span class="hf-lbl">Starting Call-Out</span>
+          </div>
+          <div class="hf-div"></div>
+          <div class="hf-item">
+            <span class="hf-num">COC</span>
+            <span class="hf-lbl">Compliance Certified</span>
+          </div>
+          <div class="hf-div"></div>
+          <div class="hf-item">
+            <span class="hf-num">24/7</span>
+            <span class="hf-lbl">Emergency Service</span>
+          </div>
+          <div class="hf-div"></div>
+          <div class="hf-item">
+            <span class="hf-num">R &amp; C</span>
+            <span class="hf-lbl">Residential &amp; Commercial</span>
+          </div>
+        </div>
+
+        <div class="hero-pills ri" data-d="500">
+          <span>⚡ Electrical</span>
+          <span>🔥 Gas</span>
+          <span>🔧 Plumbing</span>
+          <span>🚚 Removals</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ SERVICES ═══════════════════════════════════════════ -->
+    <section class="page" id="page-services">
+      <div class="pg">
+        <div class="pg-head">
+          <p class="eyebrow ri" data-d="0">What We Offer</p>
+          <h2 class="pg-title ri" data-d="60">Our <em>Services</em></h2>
+          <p class="pg-sub ri" data-d="120">Professional compliance certificates. Transparent pricing. No surprises.</p>
+        </div>
+
+        <div class="svc-list">
+
+          <!-- ELECTRICAL -->
+          <div class="svc-item ri" data-d="0">
+            <div class="svc-num">01</div>
+            <div class="svc-body">
+              <div class="svc-head-row">
+                <div>
+                  <h3 class="svc-name">Electrical Services</h3>
+                  <p class="svc-desc">COC inspections, full certificates &amp; emergency call-outs</p>
+                </div>
+                <span class="svc-ico">⚡</span>
+              </div>
+              <div class="price-table">
+                <div class="pt-row"><span class="pt-label">COC Inspection Only</span><span class="pt-val">From R750</span></div>
+                <div class="pt-row"><span class="pt-label">Full COC</span><span class="pt-val">Up to R1,500</span></div>
+                <div class="pt-row"><span class="pt-label">Call-Out Fee</span><span class="pt-val">R350 – R500</span></div>
+                <div class="pt-row"><span class="pt-label">Hourly Rate</span><span class="pt-val">R350 – R550</span></div>
+                <div class="pt-row emg"><span class="pt-label">Emergency / After Hours</span><span class="pt-val">R600 – R900</span></div>
+              </div>
+              <button class="svc-book" data-goto="booking" data-service="COC Inspection Only">Book This Service →</button>
+            </div>
+          </div>
+
+          <!-- GAS -->
+          <div class="svc-item ri" data-d="80">
+            <div class="svc-num">02</div>
+            <div class="svc-body">
+              <div class="svc-head-row">
+                <div>
+                  <h3 class="svc-name">Gas Services</h3>
+                  <p class="svc-desc">Gas COC, installations, call-outs &amp; emergencies</p>
+                </div>
+                <span class="svc-ico">🔥</span>
+              </div>
+              <div class="price-table">
+                <div class="pt-row"><span class="pt-label">Gas COC</span><span class="pt-val">R750 – R1,200</span></div>
+                <div class="pt-row"><span class="pt-label">Call-Out Fee</span><span class="pt-val">R500 – R850</span></div>
+                <div class="pt-row"><span class="pt-label">Hourly Rate</span><span class="pt-val">R350 – R500</span></div>
+                <div class="pt-row emg"><span class="pt-label">Emergency</span><span class="pt-val">R800 – R1,500</span></div>
+              </div>
+              <button class="svc-book" data-goto="booking" data-service="Gas COC">Book This Service →</button>
+            </div>
+          </div>
+
+          <!-- PLUMBING -->
+          <div class="svc-item ri" data-d="160">
+            <div class="svc-num">03</div>
+            <div class="svc-body">
+              <div class="svc-head-row">
+                <div>
+                  <h3 class="svc-name">Plumbing Services</h3>
+                  <p class="svc-desc">Fast-turnaround plumbing compliance certificates</p>
+                </div>
+                <span class="svc-ico">🔧</span>
+              </div>
+              <div class="price-table">
+                <div class="pt-row"><span class="pt-label">Plumbing COC</span><span class="pt-val">R850</span></div>
+              </div>
+              <p class="svc-note-text">Fast turnaround. Residential &amp; commercial properties covered. Fully certified.</p>
+              <button class="svc-book" data-goto="booking" data-service="Plumbing COC">Book This Service →</button>
+            </div>
+          </div>
+
+          <!-- REMOVALS -->
+          <div class="svc-item svc-item-wa ri" data-d="240">
+            <div class="svc-num">04</div>
+            <div class="svc-body">
+              <div class="svc-head-row">
+                <div>
+                  <h3 class="svc-name">Removal Services</h3>
+                  <p class="svc-desc">Instant quotes via WhatsApp — fast response guaranteed</p>
+                </div>
+                <span class="svc-ico">🚚</span>
+              </div>
+              <p class="svc-note-text">Need something moved? Tap the button below to be redirected to WhatsApp with a pre-typed message ready to send.</p>
+              <p class="wa-tag">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Opens WhatsApp with a pre-typed message
+              </p>
+              <button class="svc-book svc-book-wa" id="removalBtn">Get a WhatsApp Quote →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ BOOKING ════════════════════════════════════════════ -->
+    <section class="page" id="page-booking">
+      <div class="pg pg-mid">
+        <div class="pg-head">
+          <p class="eyebrow ri" data-d="0">Reserve Your Slot</p>
+          <h2 class="pg-title ri" data-d="60">Book a <em>Service</em></h2>
+          <p class="pg-sub ri" data-d="120">Complete the form below — we'll confirm your booking promptly.</p>
+        </div>
+
+        <!-- STEP PROGRESS -->
+        <div class="step-bar ri" data-d="160" id="stepBar">
+          <div class="step-track">
+            <div class="step-fill" id="stepFill"></div>
+          </div>
+          <div class="steps">
+            <div class="step active" data-s="1">
+              <div class="step-dot"></div>
+              <span>Your Details</span>
+            </div>
+            <div class="step" data-s="2">
+              <div class="step-dot"></div>
+              <span>Service Info</span>
+            </div>
+            <div class="step" data-s="3">
+              <div class="step-dot"></div>
+              <span>Confirm</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="bk-form ri" data-d="200" id="bookingForm" novalidate>
+
+          <!-- STEP 1 -->
+          <div class="bk-step active" id="step1">
+            <div class="f-row">
+              <div class="f-field">
+                <label for="fname">Full Name <span class="req">*</span></label>
+                <input type="text" id="fname" name="from_name" placeholder="Your full name" required/>
+              </div>
+              <div class="f-field">
+                <label for="fphone">Phone Number</label>
+                <input type="tel" id="fphone" name="phone" placeholder="+27 ..."/>
+              </div>
+            </div>
+            <div class="f-field">
+              <label for="femail">Email Address <span class="req">*</span></label>
+              <input type="email" id="femail" name="from_email" placeholder="you@email.com" required/>
+            </div>
+            <div class="f-field">
+              <label for="faddress">Property Address</label>
+              <input type="text" id="faddress" name="address" placeholder="Street, suburb, city"/>
+            </div>
+            <div class="step-nav">
+              <span></span>
+              <button type="button" class="btn-gold" id="toStep2">Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="bk-step" id="step2">
+            <div class="f-field">
+              <label for="fservice">Service Required <span class="req">*</span></label>
+              <div class="sel-wrap">
+                <select id="fservice" name="service" required>
+                  <option value="" disabled selected>Choose a service…</option>
+                  <optgroup label="⚡ Electrical">
+                    <option value="COC Inspection Only">COC – Inspection Only</option>
+                    <option value="Full COC">Full COC</option>
+                    <option value="Electrical Call-Out">Call-Out</option>
+                    <option value="Electrical Emergency">Emergency / After Hours</option>
+                  </optgroup>
+                  <optgroup label="🔥 Gas">
+                    <option value="Gas COC">Gas COC</option>
+                    <option value="Gas Call-Out">Gas Call-Out</option>
+                    <option value="Gas Emergency">Gas Emergency</option>
+                  </optgroup>
+                  <optgroup label="🔧 Plumbing">
+                    <option value="Plumbing COC">Plumbing COC</option>
+                  </optgroup>
+                </select>
+                <svg class="sel-arr" width="11" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <div class="f-field">
+              <label for="fdate">Preferred Date</label>
+              <input type="date" id="fdate" name="preferred_date"/>
+            </div>
+            <div class="f-field">
+              <label for="fmsg">Additional Notes</label>
+              <textarea id="fmsg" name="message" rows="4" placeholder="Any specific details or requirements…"></textarea>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="btn-line" id="toStep1">← Back</button>
+              <button type="button" class="btn-gold" id="toStep3">Review →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: REVIEW -->
+          <div class="bk-step" id="step3">
+            <div class="review-card">
+              <h4 class="review-title">Booking Summary</h4>
+              <div class="review-grid" id="reviewGrid">
+                <!-- filled by JS -->
+              </div>
+            </div>
+            <p class="review-note">Please confirm your details are correct before submitting.</p>
+            <div class="f-status" id="formStatus"></div>
+            <div class="step-nav">
+              <button type="button" class="btn-line" id="toStep2b">← Edit</button>
+              <button type="submit" class="btn-gold" id="submitBtn">
+                <span id="btnText">Confirm Booking</span>
+                <span class="spin" id="btnSpin"></span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+        <p class="bk-alt ri" data-d="240">Prefer a faster response? <a href="https://wa.me/27660251763" target="_blank">Chat on WhatsApp →</a></p>
+      </div>
+    </section>
+
+    <!-- ══ CONTACT ════════════════════════════════════════════ -->
+    <section class="page" id="page-contact">
+      <div class="pg">
+        <div class="pg-head">
+          <p class="eyebrow ri" data-d="0">Reach Us</p>
+          <h2 class="pg-title ri" data-d="60">Get in <em>Touch</em></h2>
+          <p class="pg-sub ri" data-d="120">We're always reachable — by phone, WhatsApp, or email.</p>
+        </div>
+
+        <div class="ct-grid">
+
+          <div class="ct-left ri" data-d="0">
+            <blockquote class="ct-quote">
+              "COC's don't have to be expensive — we offer reliable certificates at the right price."
+            </blockquote>
+            <div class="ct-tagline">
+              <span>Fast Turnaround</span>
+              <span class="ct-sep">·</span>
+              <span>Trusted Compliance</span>
+              <span class="ct-sep">·</span>
+              <span>R &amp; C</span>
+            </div>
+            <button class="btn-gold" data-goto="booking" style="margin-top:36px; width:fit-content">Book a Service</button>
+          </div>
+
+          <div class="ct-right ri" data-d="100">
+            <a href="tel:+27660251763" class="ct-card">
+              <div class="ct-card-icon">📞</div>
+              <div class="ct-card-body">
+                <span class="ct-card-lbl">Call Us</span>
+                <span class="ct-card-val">+27 66 025 1763</span>
+              </div>
+              <span class="ct-arr">→</span>
+            </a>
+
+            <a href="https://wa.me/27660251763" target="_blank" class="ct-card ct-wa">
+              <div class="ct-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div class="ct-card-body">
+                <span class="ct-card-lbl">WhatsApp</span>
+                <span class="ct-card-val">+27 66 025 1763</span>
+              </div>
+              <span class="ct-arr">→</span>
+            </a>
+
+            <a href="mailto:globelwireoutsource@gmail.com" class="ct-card">
+              <div class="ct-card-icon">✉️</div>
+              <div class="ct-card-body">
+                <span class="ct-card-lbl">Email</span>
+                <span class="ct-card-val">globelwireoutsource@gmail.com</span>
+              </div>
+              <span class="ct-arr">→</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIVE CHAT WIDGET -->
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-toggle" id="chatToggle" aria-label="Open chat">
+      <span class="chat-icon open">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </span>
+      <span class="chat-icon close" style="display:none">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </span>
+      <span class="chat-badge">1</span>
+    </button>
+
+    <div class="chat-panel" id="chatPanel">
+      <div class="chat-header">
+        <div class="chat-avatar">GW</div>
+        <div class="chat-info">
+          <p class="chat-name">Global Wire</p>
+          <p class="chat-status"><span class="chat-dot"></span>Typically replies in minutes</p>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-bubble">
+          <p>👋 Hi there! Welcome to <strong>Global Wire</strong>.</p>
+          <p>How can we help you today?</p>
+        </div>
+        <div class="chat-prompts">
+          <button class="chat-prompt" data-msg="Hi Global Wire 👋 I'd like to get a quote for an Electrical COC.">⚡ Electrical COC quote</button>
+          <button class="chat-prompt" data-msg="Hi Global Wire 👋 I'd like to get a quote for a Gas COC.">🔥 Gas COC quote</button>
+          <button class="chat-prompt" data-msg="Hi Global Wire 👋 I'd like to get a quote for a Plumbing COC.">🔧 Plumbing COC quote</button>
+          <button class="chat-prompt" data-msg="Hi Global Wire 👋 I'd like to enquire about your Removal Services.">🚚 Removal Services</button>
+          <button class="chat-prompt" data-msg="Hi Global Wire 👋 I have a general enquiry I'd like to discuss.">💬 General Enquiry</button>
+        </div>
+      </div>
+      <a href="https://wa.me/27660251763" target="_blank" class="chat-footer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Continue on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- POPIA -->
+  <div class="popia" id="popiaBar">
+    <div class="popia-inner">
+      <p class="popia-txt"><strong>🔒 POPIA Notice:</strong> Your personal information is used solely to process your booking and is never shared with third parties, in compliance with the Protection of Personal Information Act.</p>
+      <div class="popia-btns">
+        <button class="popia-ok" id="popiaOk">I Understand</button>
+        <button class="popia-x" id="popiaX">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
