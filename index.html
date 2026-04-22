@@ -8,17 +8,12 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 </head>
 <body>
 
   <!-- GRAIN -->
   <div class="grain" aria-hidden="true"></div>
-
-  <!-- SCROLL PROGRESS BAR -->
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true">
-    <div class="scroll-progress-fill" id="scrollFill"></div>
-  </div>
 
   <!-- LOADER -->
   <div class="loader" id="loader">
@@ -50,7 +45,6 @@
     </div>
 
     <a href="tel:+27754320577" class="nav-tel" aria-label="Call us">+27 75 432 0577</a>
-
     <button class="nav-ham" id="navHam" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span>
     </button>
@@ -82,25 +76,34 @@
 
     <!-- ══════════════ HOME ══════════════════════════════════════ -->
     <section class="page active" id="page-home">
-      <div class="hero">
-        <div class="hero-deco-v left"  aria-hidden="true"></div>
-        <div class="hero-deco-v right" aria-hidden="true"></div>
+      <div class="hero" id="heroSection">
+
+        <!-- PARALLAX DECORATIVE LINES -->
+        <div class="hero-deco-v left"  aria-hidden="true" id="decoLeft"></div>
+        <div class="hero-deco-v right" aria-hidden="true" id="decoRight"></div>
+        <!-- Subtle parallax bg grid -->
+        <div class="hero-parallax-bg" id="parallaxBg" aria-hidden="true"></div>
 
         <div class="hero-body">
           <p class="hero-kicker ri" data-d="0">South Africa &nbsp;·&nbsp; Compliance Specialists</p>
-          <h1 class="hero-title ri" data-d="80">
+
+          <!-- Word-reveal heading — JS splits into .word spans -->
+          <h1 class="hero-title word-reveal" id="heroTitle">
             Precision.<br><em>Certificates.</em><br>Trust.
           </h1>
-          <div class="hero-rule ri" data-d="180"></div>
-          <p class="hero-byline ri" data-d="240">
+
+          <div class="hero-rule ri" data-d="300"></div>
+
+          <p class="hero-byline ri" data-d="360">
             "COC's don't have to be expensive — we offer reliable certificates at the right price."
           </p>
-          <div class="hero-ctas ri" data-d="320">
+
+          <div class="hero-ctas ri" data-d="440">
             <button class="btn-gold" data-goto="services">Explore Services</button>
             <button class="btn-line" data-goto="booking">Book a Service</button>
           </div>
 
-          <div class="hero-pills ri" data-d="400">
+          <div class="hero-pills ri" data-d="520">
             <span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               Electrical
@@ -121,7 +124,7 @@
         </div>
 
         <!-- ANIMATED STATS -->
-        <div class="stats-strip ri" data-d="480" id="statsStrip">
+        <div class="stats-strip ri" data-d="580" id="statsStrip">
           <div class="stat-item">
             <span class="stat-num" data-target="850" data-suffix="+">0</span>
             <span class="stat-lbl">Jobs Completed</span>
@@ -143,8 +146,8 @@
           </div>
         </div>
 
-        <!-- SERVICE AREA -->
-        <div class="area-strip ri" data-d="540">
+        <!-- SERVICE AREAS -->
+        <div class="area-strip ri" data-d="640">
           <p class="area-label">We Cover</p>
           <div class="area-tags">
             <span>Johannesburg</span><span>Sandton</span><span>Midrand</span>
@@ -167,21 +170,20 @@
           <p class="pg-sub ri" data-d="120">Professional compliance certificates. Transparent pricing. No surprises.</p>
         </div>
 
-        <div class="svc-grid">
-
-          <!-- ELECTRICAL -->
-          <div class="svc-card ri" data-d="0">
-            <div class="svc-card-header">
-              <div class="svc-card-meta">
-                <span class="svc-num">01</span>
+        <!-- DESKTOP: vertical list -->
+        <div class="svc-list desktop-only">
+          <div class="svc-row ri" data-d="0">
+            <div class="svc-num">01</div>
+            <div class="svc-body">
+              <div class="svc-top-row">
+                <div>
+                  <h3 class="svc-name">Electrical Services</h3>
+                  <p class="svc-desc">COC inspections, full certificates &amp; emergency call-outs</p>
+                </div>
                 <div class="svc-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </div>
               </div>
-              <h3 class="svc-name">Electrical Services</h3>
-              <p class="svc-desc">COC inspections, full certificates &amp; emergency call-outs</p>
-            </div>
-            <div class="svc-card-body">
               <div class="price-tbl">
                 <div class="pr"><span class="pl">COC Inspection Only</span><span class="pv">From R750</span></div>
                 <div class="pr"><span class="pl">Full COC</span><span class="pv">Up to R1,500</span></div>
@@ -189,85 +191,156 @@
                 <div class="pr"><span class="pl">Hourly Rate</span><span class="pv">R350 – R550</span></div>
                 <div class="pr emg"><span class="pl">Emergency / After Hours</span><span class="pv">R600 – R900</span></div>
               </div>
-            </div>
-            <div class="svc-card-foot">
-              <button class="svc-book-btn" data-goto="booking" data-service="COC Inspection Only">Book This Service <span class="svc-arr">→</span></button>
+              <button class="svc-book-btn" data-goto="booking" data-service="COC Inspection Only">Book This Service →</button>
             </div>
           </div>
-
-          <!-- GAS -->
-          <div class="svc-card ri" data-d="80">
-            <div class="svc-card-header">
-              <div class="svc-card-meta">
-                <span class="svc-num">02</span>
+          <div class="svc-row ri" data-d="60">
+            <div class="svc-num">02</div>
+            <div class="svc-body">
+              <div class="svc-top-row">
+                <div>
+                  <h3 class="svc-name">Gas Services</h3>
+                  <p class="svc-desc">Gas COC, installations, call-outs &amp; emergencies</p>
+                </div>
                 <div class="svc-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
                 </div>
               </div>
-              <h3 class="svc-name">Gas Services</h3>
-              <p class="svc-desc">Gas COC, installations, call-outs &amp; emergencies</p>
-            </div>
-            <div class="svc-card-body">
               <div class="price-tbl">
                 <div class="pr"><span class="pl">Gas COC</span><span class="pv">R750 – R1,200</span></div>
                 <div class="pr"><span class="pl">Call-Out Fee</span><span class="pv">R500 – R850</span></div>
                 <div class="pr"><span class="pl">Hourly Rate</span><span class="pv">R350 – R500</span></div>
                 <div class="pr emg"><span class="pl">Emergency</span><span class="pv">R800 – R1,500</span></div>
               </div>
-            </div>
-            <div class="svc-card-foot">
-              <button class="svc-book-btn" data-goto="booking" data-service="Gas COC">Book This Service <span class="svc-arr">→</span></button>
+              <button class="svc-book-btn" data-goto="booking" data-service="Gas COC">Book This Service →</button>
             </div>
           </div>
-
-          <!-- PLUMBING -->
-          <div class="svc-card ri" data-d="160">
-            <div class="svc-card-header">
-              <div class="svc-card-meta">
-                <span class="svc-num">03</span>
+          <div class="svc-row ri" data-d="120">
+            <div class="svc-num">03</div>
+            <div class="svc-body">
+              <div class="svc-top-row">
+                <div>
+                  <h3 class="svc-name">Plumbing Services</h3>
+                  <p class="svc-desc">Fast-turnaround plumbing compliance certificates</p>
+                </div>
                 <div class="svc-icon-wrap">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
                 </div>
               </div>
-              <h3 class="svc-name">Plumbing Services</h3>
-              <p class="svc-desc">Fast-turnaround plumbing compliance certificates</p>
-            </div>
-            <div class="svc-card-body">
               <div class="price-tbl">
                 <div class="pr"><span class="pl">Plumbing COC</span><span class="pv">R850</span></div>
               </div>
-              <p class="svc-note">Fast turnaround. Residential &amp; commercial. Fully certified and compliant.</p>
-            </div>
-            <div class="svc-card-foot">
-              <button class="svc-book-btn" data-goto="booking" data-service="Plumbing COC">Book This Service <span class="svc-arr">→</span></button>
+              <p class="svc-note">Fast turnaround. Residential &amp; commercial. Fully certified.</p>
+              <button class="svc-book-btn" data-goto="booking" data-service="Plumbing COC">Book This Service →</button>
             </div>
           </div>
-
-          <!-- REMOVALS -->
-          <div class="svc-card svc-card-wa ri" data-d="240">
-            <div class="svc-card-header">
-              <div class="svc-card-meta">
-                <span class="svc-num">04</span>
+          <div class="svc-row svc-row-wa ri" data-d="180">
+            <div class="svc-num">04</div>
+            <div class="svc-body">
+              <div class="svc-top-row">
+                <div>
+                  <h3 class="svc-name">Removal Services</h3>
+                  <p class="svc-desc">Instant quotes via WhatsApp — fast response guaranteed</p>
+                </div>
                 <div class="svc-icon-wrap wa-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                 </div>
               </div>
-              <h3 class="svc-name">Removal Services</h3>
-              <p class="svc-desc">Instant quotes via WhatsApp — fast response guaranteed</p>
-            </div>
-            <div class="svc-card-body">
               <p class="svc-note">Need something moved? Tap below to open WhatsApp with a pre-typed message ready to send.</p>
               <p class="wa-note">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Opens WhatsApp with a pre-typed message
               </p>
-            </div>
-            <div class="svc-card-foot">
-              <button class="svc-book-btn svc-book-wa" id="removalBtn">Get a WhatsApp Quote <span class="svc-arr">→</span></button>
+              <button class="svc-book-btn svc-book-wa" id="removalBtnDesktop">Get a WhatsApp Quote →</button>
             </div>
           </div>
-
         </div>
+
+        <!-- MOBILE: swipeable cards -->
+        <div class="svc-swipe-wrap mobile-only">
+          <div class="svc-swipe-track" id="svcSwipeTrack">
+
+            <div class="svc-card-m">
+              <div class="scm-head">
+                <div class="scm-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div>
+                  <h3 class="scm-name">Electrical</h3>
+                  <p class="scm-desc">COC &amp; General Services</p>
+                </div>
+              </div>
+              <ul class="scm-prices">
+                <li><span>COC Inspection Only</span><span class="scm-pv">From R750</span></li>
+                <li><span>Full COC</span><span class="scm-pv">Up to R1,500</span></li>
+                <li><span>Call-Out Fee</span><span class="scm-pv">R350 – R500</span></li>
+                <li><span>Hourly Rate</span><span class="scm-pv">R350 – R550</span></li>
+                <li class="emg"><span>Emergency / After Hours</span><span class="scm-pv">R600 – R900</span></li>
+              </ul>
+              <button class="scm-btn" data-goto="booking" data-service="COC Inspection Only">Book Now →</button>
+            </div>
+
+            <div class="svc-card-m">
+              <div class="scm-head">
+                <div class="scm-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                </div>
+                <div>
+                  <h3 class="scm-name">Gas</h3>
+                  <p class="scm-desc">COC &amp; Installations</p>
+                </div>
+              </div>
+              <ul class="scm-prices">
+                <li><span>Gas COC</span><span class="scm-pv">R750 – R1,200</span></li>
+                <li><span>Call-Out Fee</span><span class="scm-pv">R500 – R850</span></li>
+                <li><span>Hourly Rate</span><span class="scm-pv">R350 – R500</span></li>
+                <li class="emg"><span>Emergency</span><span class="scm-pv">R800 – R1,500</span></li>
+              </ul>
+              <button class="scm-btn" data-goto="booking" data-service="Gas COC">Book Now →</button>
+            </div>
+
+            <div class="svc-card-m">
+              <div class="scm-head">
+                <div class="scm-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <div>
+                  <h3 class="scm-name">Plumbing</h3>
+                  <p class="scm-desc">Compliance Certificate</p>
+                </div>
+              </div>
+              <ul class="scm-prices">
+                <li><span>Plumbing COC</span><span class="scm-pv">R850</span></li>
+              </ul>
+              <p class="scm-note">Fast turnaround. Residential &amp; commercial. Fully certified.</p>
+              <button class="scm-btn" data-goto="booking" data-service="Plumbing COC">Book Now →</button>
+            </div>
+
+            <div class="svc-card-m svc-card-m-wa">
+              <div class="scm-head">
+                <div class="scm-icon wa-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                </div>
+                <div>
+                  <h3 class="scm-name">Removals</h3>
+                  <p class="scm-desc">Quote via WhatsApp</p>
+                </div>
+              </div>
+              <p class="scm-note">Need something moved? Get an instant quote directly on WhatsApp — fast response guaranteed.</p>
+              <button class="scm-btn scm-btn-wa" id="removalBtnMobile">Get a WhatsApp Quote →</button>
+            </div>
+
+          </div>
+
+          <!-- Swipe dots -->
+          <div class="swipe-dots" id="swipeDots">
+            <span class="sdot active" data-i="0"></span>
+            <span class="sdot" data-i="1"></span>
+            <span class="sdot" data-i="2"></span>
+            <span class="sdot" data-i="3"></span>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -284,18 +357,9 @@
         <div class="step-bar ri" data-d="140">
           <div class="step-track"><div class="step-fill" id="stepFill"></div></div>
           <div class="step-labels">
-            <div class="slabel active" data-s="1">
-              <div class="sdot"></div>
-              <span>Your Details</span>
-            </div>
-            <div class="slabel" data-s="2">
-              <div class="sdot"></div>
-              <span>Service Info</span>
-            </div>
-            <div class="slabel" data-s="3">
-              <div class="sdot"></div>
-              <span>Confirm</span>
-            </div>
+            <div class="slabel active" data-s="1"><div class="sdot-step"></div><span>Your Details</span></div>
+            <div class="slabel" data-s="2"><div class="sdot-step"></div><span>Service Info</span></div>
+            <div class="slabel" data-s="3"><div class="sdot-step"></div><span>Confirm</span></div>
           </div>
         </div>
 
@@ -303,80 +367,101 @@
 
           <!-- STEP 1 -->
           <div class="bk-step active" id="step1">
-            <div class="f-row">
-              <div class="f-field">
-                <label for="fname">Full Name <span class="req">*</span></label>
-                <input type="text" id="fname" name="from_name" placeholder="Your full name" autocomplete="name" required/>
+            <div class="bk-step-card">
+              <div class="bk-step-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Personal Information
+              </div>
+              <div class="f-row">
+                <div class="f-field">
+                  <label for="fname">Full Name <span class="req">*</span></label>
+                  <input type="text" id="fname" name="from_name" placeholder="Your full name" autocomplete="name" required/>
+                </div>
+                <div class="f-field">
+                  <label for="fphone">Phone Number</label>
+                  <input type="tel" id="fphone" name="phone" placeholder="+27 ..." autocomplete="tel"/>
+                </div>
               </div>
               <div class="f-field">
-                <label for="fphone">Phone Number</label>
-                <input type="tel" id="fphone" name="phone" placeholder="+27 ..." autocomplete="tel"/>
+                <label for="femail">Email Address <span class="req">*</span></label>
+                <input type="email" id="femail" name="from_email" placeholder="you@email.com" autocomplete="email" required/>
               </div>
-            </div>
-            <div class="f-field">
-              <label for="femail">Email Address <span class="req">*</span></label>
-              <input type="email" id="femail" name="from_email" placeholder="you@email.com" autocomplete="email" required/>
-            </div>
-            <div class="f-field">
-              <label for="faddress">Property Address</label>
-              <input type="text" id="faddress" name="address" placeholder="Street, suburb, city" autocomplete="street-address"/>
+              <div class="f-field">
+                <label for="faddress">Property Address</label>
+                <input type="text" id="faddress" name="address" placeholder="Street, suburb, city" autocomplete="street-address"/>
+              </div>
             </div>
             <div class="step-nav">
               <span></span>
-              <button type="button" class="btn-gold" id="toStep2">Continue →</button>
+              <button type="button" class="btn-gold" id="toStep2">
+                Continue
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
           </div>
 
           <!-- STEP 2 -->
           <div class="bk-step" id="step2">
-            <div class="f-field">
-              <label for="fservice">Service Required <span class="req">*</span></label>
-              <div class="sel-wrap">
-                <select id="fservice" name="service" required>
-                  <option value="" disabled selected>Choose a service…</option>
-                  <optgroup label="Electrical">
-                    <option value="COC Inspection Only">COC – Inspection Only</option>
-                    <option value="Full COC">Full COC</option>
-                    <option value="Electrical Call-Out">Call-Out</option>
-                    <option value="Electrical Emergency">Emergency / After Hours</option>
-                  </optgroup>
-                  <optgroup label="Gas">
-                    <option value="Gas COC">Gas COC</option>
-                    <option value="Gas Call-Out">Gas Call-Out</option>
-                    <option value="Gas Emergency">Gas Emergency</option>
-                  </optgroup>
-                  <optgroup label="Plumbing">
-                    <option value="Plumbing COC">Plumbing COC</option>
-                  </optgroup>
-                </select>
-                <svg class="sel-arr" width="11" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </div>
-            </div>
-            <div class="f-row">
-              <div class="f-field">
-                <label for="fdate">Preferred Date</label>
-                <input type="date" id="fdate" name="preferred_date"/>
+            <div class="bk-step-card">
+              <div class="bk-step-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Service &amp; Schedule
               </div>
               <div class="f-field">
-                <label for="ftime">Preferred Time</label>
+                <label for="fservice">Service Required <span class="req">*</span></label>
                 <div class="sel-wrap">
-                  <select id="ftime" name="preferred_time">
-                    <option value="Flexible">Flexible</option>
-                    <option value="Morning (08:00–12:00)">Morning (08:00–12:00)</option>
-                    <option value="Afternoon (12:00–17:00)">Afternoon (12:00–17:00)</option>
-                    <option value="Evening (17:00–19:00)">Evening (17:00–19:00)</option>
+                  <select id="fservice" name="service" required>
+                    <option value="" disabled selected>Choose a service…</option>
+                    <optgroup label="Electrical">
+                      <option value="COC Inspection Only">COC – Inspection Only</option>
+                      <option value="Full COC">Full COC</option>
+                      <option value="Electrical Call-Out">Call-Out</option>
+                      <option value="Electrical Emergency">Emergency / After Hours</option>
+                    </optgroup>
+                    <optgroup label="Gas">
+                      <option value="Gas COC">Gas COC</option>
+                      <option value="Gas Call-Out">Gas Call-Out</option>
+                      <option value="Gas Emergency">Gas Emergency</option>
+                    </optgroup>
+                    <optgroup label="Plumbing">
+                      <option value="Plumbing COC">Plumbing COC</option>
+                    </optgroup>
                   </select>
                   <svg class="sel-arr" width="11" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 </div>
               </div>
-            </div>
-            <div class="f-field">
-              <label for="fmsg">Additional Notes</label>
-              <textarea id="fmsg" name="message" rows="4" placeholder="Any specific requirements or details…"></textarea>
+              <div class="f-row">
+                <div class="f-field">
+                  <label for="fdate">Preferred Date</label>
+                  <input type="date" id="fdate" name="preferred_date"/>
+                </div>
+                <div class="f-field">
+                  <label for="ftime">Preferred Time</label>
+                  <div class="sel-wrap">
+                    <select id="ftime" name="preferred_time">
+                      <option value="Flexible">Flexible</option>
+                      <option value="Morning (08:00–12:00)">Morning (08:00–12:00)</option>
+                      <option value="Afternoon (12:00–17:00)">Afternoon (12:00–17:00)</option>
+                      <option value="Evening (17:00–19:00)">Evening (17:00–19:00)</option>
+                    </select>
+                    <svg class="sel-arr" width="11" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="f-field">
+                <label for="fmsg">Additional Notes</label>
+                <textarea id="fmsg" name="message" rows="3" placeholder="Any specific requirements or details…"></textarea>
+              </div>
             </div>
             <div class="step-nav">
-              <button type="button" class="btn-line" id="toStep1">← Back</button>
-              <button type="button" class="btn-gold" id="toStep3">Review →</button>
+              <button type="button" class="btn-line" id="toStep1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Back
+              </button>
+              <button type="button" class="btn-gold" id="toStep3">
+                Review
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
           </div>
 
@@ -386,10 +471,13 @@
               <h4 class="review-heading">Booking Summary</h4>
               <div id="reviewGrid" class="review-grid"></div>
             </div>
-            <p class="review-note">Please confirm all details are correct before submitting.</p>
+            <p class="review-note">Please confirm your details are correct before submitting.</p>
             <div class="f-status" id="formStatus"></div>
             <div class="step-nav">
-              <button type="button" class="btn-line" id="toStep2b">← Edit</button>
+              <button type="button" class="btn-line" id="toStep2b">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Edit
+              </button>
               <button type="submit" class="btn-gold" id="submitBtn">
                 <span id="btnText">Confirm Booking</span>
                 <span class="spin" id="btnSpin"></span>
@@ -424,12 +512,31 @@
               <span class="ctm-dot">·</span>
               <span>R &amp; C</span>
             </div>
+            <!-- Trust points -->
+            <div class="ct-trust">
+              <div class="ct-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Certified &amp; fully compliant COC certificates</span>
+              </div>
+              <div class="ct-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Residential &amp; commercial properties covered</span>
+              </div>
+              <div class="ct-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Emergency &amp; after-hours availability</span>
+              </div>
+              <div class="ct-trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Transparent pricing — no hidden costs</span>
+              </div>
+            </div>
             <div class="ct-left-btns">
               <button class="btn-gold" data-goto="booking">Book a Service</button>
             </div>
           </div>
 
-          <div class="ct-right ri" data-d="100">
+          <div class="ct-right ri" data-d="120">
             <a href="tel:+27754320577" class="ct-card">
               <div class="ct-card-ico">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.45a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -462,12 +569,35 @@
               </div>
               <span class="ct-arr">→</span>
             </a>
+
+            <!-- Operating hours card -->
+            <div class="ct-card ct-hours">
+              <div class="ct-card-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="ct-card-body">
+                <span class="ct-lbl">Business Hours</span>
+                <span class="ct-val ct-val-sm">Mon–Fri: 07:00–18:00 &nbsp;·&nbsp; Emergencies: 24/7</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- MOBILE PINNED CALL BAR -->
+  <div class="mobile-call-bar" id="mobileCallBar">
+    <a href="tel:+27754320577" class="mcb-call">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.45a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call Now
+    </a>
+    <a href="https://wa.me/27754320577" target="_blank" rel="noopener" class="mcb-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
 
   <!-- LIVE CHAT WIDGET -->
   <div class="chat-widget" id="chatWidget">
@@ -480,7 +610,6 @@
       </span>
       <span class="chat-badge" id="chatBadge" aria-label="1 new message">1</span>
     </button>
-
     <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Global Wire">
       <div class="chat-header">
         <div class="chat-av">GW</div>
@@ -534,6 +663,51 @@
         <button class="popia-ok" id="popiaOk">I Understand</button>
         <button class="popia-x" id="popiaX" aria-label="Close">✕</button>
       </div>
+    </div>
+  </div>
+
+  <!-- BOOKING SUCCESS MODAL -->
+  <div class="success-modal-overlay" id="successOverlay" role="dialog" aria-modal="true" aria-label="Booking confirmed">
+    <div class="success-modal" id="successModal">
+
+      <!-- Animated checkmark ring -->
+      <div class="success-ring">
+        <svg class="success-ring-svg" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="36" stroke="rgba(201,168,76,0.15)" stroke-width="2"/>
+          <circle class="success-ring-arc" cx="40" cy="40" r="36" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="success-check">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="success-check-path" points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="success-content">
+        <p class="success-eyebrow">Booking Received</p>
+        <h2 class="success-title">Thank You,<br><em id="successName">—</em></h2>
+        <p class="success-body">
+          Your booking request for <strong id="successService">—</strong> has been submitted successfully.
+          We will review your details and contact you shortly to confirm.
+        </p>
+
+        <div class="success-details" id="successDetails">
+          <!-- populated by JS -->
+        </div>
+
+        <p class="success-note">
+          A confirmation will be sent to <strong id="successEmail">—</strong>
+        </p>
+
+        <div class="success-actions">
+          <button class="btn-gold" id="successClose">Done</button>
+          <a href="https://wa.me/27754320577" target="_blank" rel="noopener" class="success-wa-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 
