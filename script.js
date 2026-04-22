@@ -1,27 +1,82 @@
 /* ================================================================
-   GLOBAL WIRE — script.js  (Enhanced)
-   Scroll Progress · Smoother Tabs · EmailJS · Multi-Step Booking
+   GLOBAL WIRE — script.js
+   Upgrade: Word Reveals · Parallax · Swipe Dots · Pinned Call Bar
    ================================================================ */
 
-const EMAILJS_PUBLIC  = "_yAz4PMpNoZOAzlbu";
-const EMAILJS_SERVICE = "service_9ouz7yj";
-const EMAILJS_TMPL    = "template_n1sh6jm";
-const WA_NUMBER       = "27671178955";
+const EMAILJS_PUBLIC  = "bn3bUFzlIJWgCV6Be";
+const EMAILJS_SERVICE = "service_hpyva7lt";
+const EMAILJS_TMPL    = "template_z2hqgtj";
+const WA_NUMBER       = "27754320577";
+const OWNER_EMAIL     = "globelwireoutsource@gmail.com";
 
-// ── EMAILJS ──────────────────────────────────────────────────
-emailjs.init({ publicKey: EMAILJS_PUBLIC });
+// ── EMAILJS — safe init, called once SDK is confirmed ready ──
+function initEmailJS() {
+  if (typeof emailjs !== "undefined") {
+    try { emailjs.init({ publicKey: EMAILJS_PUBLIC }); }
+    catch (e) { console.warn("EmailJS init:", e); }
+  }
+}
 
 // ── LOADER ───────────────────────────────────────────────────
 const loaderEl = document.getElementById("loader");
+
 window.addEventListener("load", () => {
+  initEmailJS(); // init here — SDK is guaranteed loaded at this point
   setTimeout(() => {
     loaderEl.classList.add("gone");
+    initWordReveal();
     revealPage("home");
     animateStats();
     setTimeout(initPopia, 900);
     setTimeout(initChatAutoOpen, 9000);
   }, 1900);
 });
+
+// ── WORD REVEAL ───────────────────────────────────────────────
+// Splits hero title into individual .word spans and staggers them in
+function initWordReveal() {
+  const title = document.getElementById("heroTitle");
+  if (!title) return;
+
+  // Walk text nodes and element nodes to preserve <br> and <em>
+  function splitNode(node, baseDelay, delayStep) {
+    let delay = baseDelay;
+    if (node.nodeType === Node.TEXT_NODE) {
+      const words = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      words.forEach(part => {
+        if (!part.trim()) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement("span");
+          span.className = "word";
+          span.textContent = part;
+          span.style.transitionDelay = delay + "ms";
+          delay += delayStep;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE &&
+               node.tagName !== "BR") {
+      // Clone to iterate, since we'll be modifying childNodes
+      const children = Array.from(node.childNodes);
+      children.forEach(child => {
+        delay = splitNode(child, delay, delayStep);
+      });
+    }
+    return delay;
+  }
+
+  // Use 100ms base delay (after kicker), 120ms between words
+  splitNode(title, 160, 120);
+}
+
+// Trigger word reveals for the hero heading
+function triggerWordReveal() {
+  const words = document.querySelectorAll("#heroTitle .word");
+  words.forEach(w => w.classList.add("vis"));
+}
 
 // ── POPIA ────────────────────────────────────────────────────
 const popiaBar = document.getElementById("popiaBar");
@@ -35,35 +90,13 @@ function dismissPopia() {
 document.getElementById("popiaOk").addEventListener("click", dismissPopia);
 document.getElementById("popiaX").addEventListener("click",  dismissPopia);
 
-// ── SCROLL PROGRESS ──────────────────────────────────────────
-const scrollFill = document.getElementById("scrollFill");
-const nav = document.getElementById("nav");
-
-function updateScrollProgress(page) {
-  if (!scrollFill || !page) return;
-  const el = document.getElementById("page-" + page);
-  if (!el) return;
-  el.addEventListener("scroll", () => {
-    const max = el.scrollHeight - el.clientHeight;
-    const pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
-    scrollFill.style.width = pct + "%";
-    // Nav glass effect on scroll
-    if (el.scrollTop > 20) {
-      nav.classList.add("scrolled");
-    } else {
-      nav.classList.remove("scrolled");
-    }
-  }, { passive: true });
-}
-
 // ── ANIMATED COUNTERS ─────────────────────────────────────────
 function animateStats() {
   const nums = document.querySelectorAll(".stat-num[data-target]");
   nums.forEach(el => {
     const target = parseInt(el.dataset.target);
     const suffix = el.dataset.suffix || "";
-    const dur    = 1800;
-    const step   = 16;
+    const dur    = 1800, step = 16;
     const steps  = Math.round(dur / step);
     let current  = 0;
     const inc    = target / steps;
@@ -73,6 +106,29 @@ function animateStats() {
       el.textContent = Math.floor(current) + suffix;
     }, step);
   });
+}
+
+// ── PARALLAX ──────────────────────────────────────────────────
+const parallaxBg   = document.getElementById("parallaxBg");
+const decoLeft     = document.getElementById("decoLeft");
+const decoRight    = document.getElementById("decoRight");
+const heroPage     = document.getElementById("page-home");
+
+function handleParallax() {
+  if (!heroPage || currentTab !== "home") return;
+  const scrollY = heroPage.scrollTop;
+
+  // Subtle grid moves slower than content
+  if (parallaxBg) {
+    parallaxBg.style.transform = `translateY(${scrollY * 0.25}px)`;
+  }
+  // Deco lines move at different speed for depth
+  if (decoLeft)  decoLeft.style.transform  = `translateY(${scrollY * 0.15}px)`;
+  if (decoRight) decoRight.style.transform = `translateY(${scrollY * 0.1}px)`;
+}
+
+if (heroPage) {
+  heroPage.addEventListener("scroll", handleParallax, { passive: true });
 }
 
 // ── TABS ─────────────────────────────────────────────────────
@@ -86,24 +142,21 @@ function switchTab(tabName, prefillService = null) {
 
   const outPage = document.getElementById("page-" + currentTab);
   const inPage  = document.getElementById("page-" + tabName);
+  const goRight = TAB_ORDER.indexOf(tabName) > TAB_ORDER.indexOf(currentTab);
 
-  // Smoother crossfade — no transform-based shift
-  outPage.style.cssText = `opacity:0; transition:opacity 0.3s ease; pointer-events:none;`;
+  // Exit
+  outPage.style.cssText = `opacity:0; transform:translateX(${goRight ? "-28px" : "28px"}); transition:opacity 0.38s ease, transform 0.38s ease; pointer-events:none;`;
 
   setTimeout(() => {
     outPage.classList.remove("active");
     outPage.style.cssText = "";
 
-    // Reset scroll fill for new page
-    if (scrollFill) scrollFill.style.width = "0%";
-    if (nav) nav.classList.remove("scrolled");
-
-    inPage.style.cssText = `opacity:0; pointer-events:all;`;
+    inPage.style.cssText = `opacity:0; transform:translateX(${goRight ? "28px" : "-28px"}); pointer-events:all;`;
     inPage.classList.add("active");
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        inPage.style.cssText = `opacity:1; transition:opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94); pointer-events:all;`;
+        inPage.style.cssText = `opacity:1; transform:translateX(0); transition:opacity 0.55s cubic-bezier(0,0,0.2,1), transform 0.55s cubic-bezier(0,0,0.2,1); pointer-events:all;`;
 
         setTimeout(() => {
           inPage.style.cssText = "";
@@ -111,95 +164,125 @@ function switchTab(tabName, prefillService = null) {
           currentTab      = tabName;
           inPage.scrollTop = 0;
           revealPage(tabName);
-          updateScrollProgress(tabName);
 
-          if (tabName === "home") animateStats();
+          if (tabName === "home") {
+            animateStats();
+            triggerWordReveal();
+          }
 
           if (prefillService && tabName === "booking") {
             const sel = document.getElementById("fservice");
-            if (sel) {
-              for (const opt of sel.options) {
-                if (opt.value === prefillService) { sel.value = prefillService; break; }
-              }
+            if (sel) for (const opt of sel.options) {
+              if (opt.value === prefillService) { sel.value = prefillService; break; }
             }
           }
-        }, 420);
+        }, 570);
       });
     });
-  }, 220);
+  }, 300);
 
-  // Update nav indicators immediately
-  document.querySelectorAll(".nt").forEach(b => b.classList.toggle("active",  b.dataset.tab === tabName));
+  // Nav indicators
+  document.querySelectorAll(".nt").forEach(b  => b.classList.toggle("active",  b.dataset.tab === tabName));
   document.querySelectorAll(".mnt").forEach(b => b.classList.toggle("active", b.dataset.tab === tabName));
 
   closeDrawer();
 }
 
-// ── REVEAL ANIMATIONS ─────────────────────────────────────────
+// ── REVEAL ITEMS ──────────────────────────────────────────────
 function revealPage(tabName) {
   const page  = document.getElementById("page-" + tabName);
   const items = page.querySelectorAll(".ri:not(.vis)");
   items.forEach((el, i) => {
     const base  = parseInt(el.dataset.d || 0);
-    const delay = base + i * 40;
+    const delay = base + i * 50;
     setTimeout(() => el.classList.add("vis"), delay);
   });
+  // Trigger word reveal when returning to home
+  if (tabName === "home") {
+    setTimeout(triggerWordReveal, 200);
+  }
 }
 
-// ── NAV CLICKS ───────────────────────────────────────────────
+// ── NAV TABS ──────────────────────────────────────────────────
 document.querySelectorAll(".nt").forEach(btn => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
 });
 
-// ── DELEGATE [data-goto] ─────────────────────────────────────
+// ── DELEGATE [data-goto] ──────────────────────────────────────
 document.addEventListener("click", e => {
   const el = e.target.closest("[data-goto]");
   if (!el) return;
   switchTab(el.dataset.goto, el.dataset.service || null);
 });
 
-// ── DRAWER ───────────────────────────────────────────────────
+// ── DRAWER ────────────────────────────────────────────────────
 const navHam      = document.getElementById("navHam");
 const drawer      = document.getElementById("drawer");
 const drawerVeil  = document.getElementById("drawerVeil");
 const drawerClose = document.getElementById("drawerClose");
 
-function openDrawer() {
-  drawer.classList.add("open");
-  drawerVeil.classList.add("open");
-  navHam.setAttribute("aria-expanded", "true");
-  document.body.style.overflow = "hidden";
-}
-function closeDrawer() {
-  drawer.classList.remove("open");
-  drawerVeil.classList.remove("open");
-  navHam.setAttribute("aria-expanded", "false");
-  document.body.style.overflow = "";
-}
+function openDrawer()  { drawer.classList.add("open"); drawerVeil.classList.add("open"); navHam.setAttribute("aria-expanded","true"); }
+function closeDrawer() { drawer.classList.remove("open"); drawerVeil.classList.remove("open"); navHam.setAttribute("aria-expanded","false"); }
 
-navHam.addEventListener("click",      openDrawer);
-drawerClose.addEventListener("click", closeDrawer);
-drawerVeil.addEventListener("click",  closeDrawer);
+navHam.addEventListener("click",       openDrawer);
+drawerClose.addEventListener("click",  closeDrawer);
+drawerVeil.addEventListener("click",   closeDrawer);
 document.querySelectorAll(".mnt").forEach(btn => {
   btn.addEventListener("click", () => { switchTab(btn.dataset.tab); closeDrawer(); });
 });
 
-// ── REMOVAL → WHATSAPP ───────────────────────────────────────
-const removalBtn = document.getElementById("removalBtn");
-if (removalBtn) {
-  removalBtn.addEventListener("click", () => {
-    const msg = encodeURIComponent(
-      "Hello Global Wire,\n\n" +
-      "I would like to enquire about your *Removal Services*.\n\n" +
-      "Could you please provide a quote and confirm available dates?\n\nThank you."
-    );
-    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, "_blank");
+// ── SWIPEABLE CARDS — DOT INDICATORS ─────────────────────────
+const swipeTrack = document.getElementById("svcSwipeTrack");
+const swipeDots  = document.querySelectorAll(".sdot");
+
+function updateSwipeDots() {
+  if (!swipeTrack) return;
+  const cards = swipeTrack.querySelectorAll(".svc-card-m");
+  const scrollLeft = swipeTrack.scrollLeft;
+  const cardWidth  = cards[0]?.offsetWidth + 16 || 1; // width + gap
+  const activeIdx  = Math.round(scrollLeft / cardWidth);
+
+  swipeDots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === activeIdx);
   });
 }
 
+if (swipeTrack) {
+  swipeTrack.addEventListener("scroll", updateSwipeDots, { passive: true });
+
+  // Dot clicks scroll to that card
+  swipeDots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      const cards   = swipeTrack.querySelectorAll(".svc-card-m");
+      const target  = cards[i];
+      if (target) {
+        swipeTrack.scrollTo({
+          left: target.offsetLeft - 20,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+}
+
+// ── REMOVAL → WHATSAPP ────────────────────────────────────────
+function openRemovalWA() {
+  const msg = encodeURIComponent(
+    "Hello Global Wire,\n\n" +
+    "I would like to enquire about your *Removal Services*.\n\n" +
+    "Could you please provide a quote and confirm available dates?\n\nThank you."
+  );
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, "_blank");
+}
+
+const removalBtnD = document.getElementById("removalBtnDesktop");
+const removalBtnM = document.getElementById("removalBtnMobile");
+if (removalBtnD) removalBtnD.addEventListener("click", openRemovalWA);
+if (removalBtnM) removalBtnM.addEventListener("click", openRemovalWA);
+
 // ── MULTI-STEP BOOKING ────────────────────────────────────────
 let currentStep = 1;
-const stepFillEl   = document.getElementById("stepFill");
+const stepFill   = document.getElementById("stepFill");
 const stepLabels = document.querySelectorAll(".slabel");
 
 function goToStep(n) {
@@ -213,20 +296,20 @@ function goToStep(n) {
   currentStep = n;
   document.getElementById("step" + currentStep).classList.add("active");
 
-  // Progress bar
   const pcts = { 1: 16.6, 2: 50, 3: 100 };
-  if (stepFillEl) stepFillEl.style.width = pcts[currentStep] + "%";
+  stepFill.style.width = pcts[currentStep] + "%";
 
-  // Step labels
   stepLabels.forEach(s => {
     const sn = parseInt(s.dataset.s);
     s.classList.toggle("active", sn === currentStep);
     s.classList.toggle("done",   sn < currentStep);
   });
 
-  // Scroll to form top on mobile
+  // Smooth scroll to top of form on mobile
   const form = document.getElementById("bookingForm");
-  if (form) form.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (form && window.innerWidth < 680) {
+    setTimeout(() => form.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  }
 }
 
 function validateStep1() {
@@ -263,30 +346,29 @@ function flashField(id, msg) {
     el.style.borderColor = "";
     el.style.boxShadow   = "";
     if (err.parentElement) err.remove();
-  }, 2800);
+  }, 2600);
 }
 
 function buildReview() {
-  const g = (id) => document.getElementById(id)?.value?.trim() || "—";
+  const g = id => document.getElementById(id)?.value?.trim() || "—";
   const fields = [
-    { lbl: "Full Name",      val: g("fname") },
-    { lbl: "Email",          val: g("femail") },
-    { lbl: "Phone",          val: g("fphone") || "—" },
-    { lbl: "Address",        val: g("faddress") || "—" },
+    { lbl: "Full Name",      val: g("fname"),    gold: false },
+    { lbl: "Email",          val: g("femail"),   gold: false },
+    { lbl: "Phone",          val: g("fphone") || "—",  gold: false },
+    { lbl: "Address",        val: g("faddress") || "—", gold: false },
     { lbl: "Service",        val: document.getElementById("fservice").value, gold: true },
-    { lbl: "Preferred Date", val: g("fdate") || "Flexible" },
-    { lbl: "Preferred Time", val: document.getElementById("ftime")?.value || "Flexible" },
-    { lbl: "Notes",          val: g("fmsg") || "None" },
+    { lbl: "Date",           val: g("fdate") || "Flexible", gold: false },
+    { lbl: "Time",           val: document.getElementById("ftime")?.value || "Flexible", gold: false },
+    { lbl: "Notes",          val: g("fmsg") || "None", gold: false },
   ];
   document.getElementById("reviewGrid").innerHTML = fields.map(f =>
     `<div class="review-row">
-      <span class="rlbl">${f.lbl}</span>
-      <span class="rval${f.gold ? " gold" : ""}">${f.val}</span>
-    </div>`
+       <span class="rlbl">${f.lbl}</span>
+       <span class="rval${f.gold ? " gold" : ""}">${f.val}</span>
+     </div>`
   ).join("");
 }
 
-// Wire step buttons
 ["toStep2","toStep3","toStep1","toStep2b"].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -294,7 +376,7 @@ function buildReview() {
   el.addEventListener("click", () => goToStep(target));
 });
 
-// ── FORM SUBMIT ──────────────────────────────────────────────
+// ── FORM SUBMIT ───────────────────────────────────────────────
 const bookingForm = document.getElementById("bookingForm");
 const formStatus  = document.getElementById("formStatus");
 const submitBtn   = document.getElementById("submitBtn");
@@ -307,20 +389,24 @@ if (bookingForm) {
     setLoading(true);
     clearStatus();
 
+    // Collect all field values
     const nameVal    = document.getElementById("fname").value.trim();
     const emailVal   = document.getElementById("femail").value.trim();
-    const phoneVal   = document.getElementById("fphone").value.trim()    || "Not provided";
+    const phoneVal   = document.getElementById("fphone").value.trim()   || "Not provided";
     const serviceVal = document.getElementById("fservice").value;
-    const addrVal    = document.getElementById("faddress").value.trim()  || "Not provided";
-    const dateVal    = document.getElementById("fdate").value            || "Flexible";
-    const timeVal    = document.getElementById("ftime")?.value           || "Flexible";
-    const msgVal     = document.getElementById("fmsg").value.trim()      || "None";
+    const addrVal    = document.getElementById("faddress").value.trim() || "Not provided";
+    const dateVal    = document.getElementById("fdate").value           || "Flexible";
+    const timeVal    = document.getElementById("ftime")?.value          || "Flexible";
+    const msgVal     = document.getElementById("fmsg").value.trim()     || "None";
 
+    // All possible template variable names so it works regardless of template setup
     const params = {
+      // Primary variables (matching the EmailJS template)
       from_name:      nameVal,
       from_email:     emailVal,
       reply_to:       emailVal,
       to_name:        "Global Wire",
+      // Common aliases
       name:           nameVal,
       email:          emailVal,
       phone:          phoneVal,
@@ -329,46 +415,158 @@ if (bookingForm) {
       preferred_date: dateVal,
       preferred_time: timeVal,
       message:        msgVal,
-      subject:        `New Booking Request – ${serviceVal}`,
-      time:           dateVal + " · " + timeVal,
+      // Extra
+      subject:        "New Booking: " + serviceVal,
+      time:           dateVal + " at " + timeVal,
     };
 
-    try {
-      const result = await emailjs.send(EMAILJS_SERVICE, EMAILJS_TMPL, params);
-      console.log("EmailJS success:", result.status, result.text);
-      setLoading(false);
-      showStatus("ok", "✓ Booking request sent — we will be in touch shortly.");
+    // ── ATTEMPT 1: EmailJS ────────────────────────────────────
+    let emailJSSent = false;
+
+    if (typeof emailjs !== "undefined") {
+      try {
+        const result = await emailjs.send(EMAILJS_SERVICE, EMAILJS_TMPL, params);
+        console.log("EmailJS OK:", result.status, result.text);
+        emailJSSent = true;
+      } catch (err) {
+        console.error("EmailJS failed:", JSON.stringify(err));
+        emailJSSent = false;
+      }
+    }
+
+    setLoading(false);
+
+    if (emailJSSent) {
+      // ── SUCCESS — show popup modal ────────────────────────────
+      showSuccessModal({
+        name:    nameVal,
+        service: serviceVal,
+        email:   emailVal,
+        phone:   phoneVal,
+        date:    dateVal,
+        time:    timeVal,
+        address: addrVal,
+      });
       bookingForm.reset();
       goToStep(1);
-    } catch (err) {
-      console.error("EmailJS error:", JSON.stringify(err));
-      setLoading(false);
-      showStatus("err", `Unable to send — please WhatsApp us on +27 67 117 8955 or email globelwireoutsource@gmail.com`);
+
+    } else {
+      // ── FALLBACK: open their email app pre-filled ─────────────
+      // Build a clean mailto body with all booking details
+      const mailBody = [
+        "BOOKING REQUEST — GLOBAL WIRE",
+        "================================",
+        "",
+        "Full Name:      " + nameVal,
+        "Email:          " + emailVal,
+        "Phone:          " + phoneVal,
+        "Service:        " + serviceVal,
+        "Address:        " + addrVal,
+        "Preferred Date: " + dateVal,
+        "Preferred Time: " + timeVal,
+        "Notes:          " + msgVal,
+        "",
+        "================================",
+        "Sent from the Global Wire website.",
+      ].join("
+");
+
+      const mailSubject = encodeURIComponent("Booking Request: " + serviceVal + " — " + nameVal);
+      const mailBodyEnc = encodeURIComponent(mailBody);
+      const mailtoLink  = "mailto:" + OWNER_EMAIL + "?subject=" + mailSubject + "&body=" + mailBodyEnc;
+
+      // Open their email client with everything pre-filled
+      window.location.href = mailtoLink;
+
+      // Show the modal even for the mailto fallback
+      showSuccessModal({
+        name:    nameVal,
+        service: serviceVal,
+        email:   emailVal,
+        phone:   phoneVal,
+        date:    dateVal,
+        time:    timeVal,
+        address: addrVal,
+        mailFallback: true,
+      });
     }
   });
 }
 
-function showStatus(type, msg) {
-  formStatus.className   = "f-status " + type;
-  formStatus.textContent = msg;
-}
-function clearStatus() {
-  formStatus.className   = "f-status";
-  formStatus.textContent = "";
-}
+function showStatus(type, msg) { formStatus.className = "f-status " + type; formStatus.textContent = msg; }
+function clearStatus()         { formStatus.className = "f-status"; formStatus.textContent = ""; }
 function setLoading(on) {
   submitBtn.disabled    = on;
   btnText.style.display = on ? "none" : "";
   btnSpin.style.display = on ? "inline-block" : "none";
 }
 
-// ── LIVE CHAT WIDGET ─────────────────────────────────────────
-const chatToggle  = document.getElementById("chatToggle");
-const chatPanel   = document.getElementById("chatPanel");
-const chatBadge   = document.getElementById("chatBadge");
-const iconOpen    = chatToggle.querySelector(".chat-icon-open");
-const iconClose   = chatToggle.querySelector(".chat-icon-close");
-let chatOpen      = false;
+// ── SUCCESS MODAL ────────────────────────────────────────────
+function showSuccessModal(data) {
+  const overlay = document.getElementById("successOverlay");
+  if (!overlay) return;
+
+  // Populate dynamic fields
+  const el = id => document.getElementById(id);
+  if (el("successName"))    el("successName").textContent    = data.name    || "—";
+  if (el("successService")) el("successService").textContent = data.service || "—";
+  if (el("successEmail"))   el("successEmail").textContent   = data.email   || "—";
+
+  // Build details summary rows
+  const rows = [
+    { lbl: "Service",  val: data.service, gold: true  },
+    { lbl: "Date",     val: data.date    || "Flexible" },
+    { lbl: "Time",     val: data.time    || "Flexible" },
+    { lbl: "Address",  val: data.address || "Not provided" },
+    { lbl: "Phone",    val: data.phone   || "Not provided" },
+  ];
+
+  const grid = document.getElementById("successDetails");
+  if (grid) {
+    grid.innerHTML = rows.map(r =>
+      `<div class="sd-row">
+         <span class="sd-lbl">${r.lbl}</span>
+         <span class="sd-val${r.gold ? " gold" : ""}">${r.val}</span>
+       </div>`
+    ).join("");
+  }
+
+  // Add a note if we used the mailto fallback
+  const note = overlay.querySelector(".success-note");
+  if (note && data.mailFallback) {
+    note.innerHTML = `Your email app has opened with all booking details pre-filled.<br>
+      Simply press <strong>Send</strong> to complete your booking.`;
+  } else if (note) {
+    note.innerHTML = `A confirmation will be sent to <strong>${data.email || "—"}</strong>`;
+  }
+
+  // Show overlay
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSuccessModal() {
+  const overlay = document.getElementById("successOverlay");
+  if (!overlay) return;
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Wire up close button and overlay click
+const successOverlay = document.getElementById("successOverlay");
+const successClose   = document.getElementById("successClose");
+if (successClose)   successClose.addEventListener("click", closeSuccessModal);
+if (successOverlay) successOverlay.addEventListener("click", e => {
+  if (e.target === successOverlay) closeSuccessModal();
+});
+
+// ── LIVE CHAT ─────────────────────────────────────────────────
+const chatToggle = document.getElementById("chatToggle");
+const chatPanel  = document.getElementById("chatPanel");
+const chatBadge  = document.getElementById("chatBadge");
+const iconOpen   = chatToggle.querySelector(".chat-icon-open");
+const iconClose  = chatToggle.querySelector(".chat-icon-close");
+let chatOpen     = false;
 
 function setChatOpen(open) {
   chatOpen = open;
@@ -381,7 +579,6 @@ function setChatOpen(open) {
 
 chatToggle.addEventListener("click", () => setChatOpen(!chatOpen));
 
-// Chat prompts → WhatsApp
 document.querySelectorAll(".chat-prompt").forEach(btn => {
   btn.addEventListener("click", () => {
     const msg = encodeURIComponent(btn.dataset.msg + "\n\nThank you.");
@@ -389,16 +586,12 @@ document.querySelectorAll(".chat-prompt").forEach(btn => {
   });
 });
 
-// Auto-open once per session
 function initChatAutoOpen() {
   if (!chatOpen && !sessionStorage.getItem("gw_chat_v2")) {
     setChatOpen(true);
     sessionStorage.setItem("gw_chat_v2", "1");
   }
 }
-
-// ── INIT SCROLL PROGRESS FOR HOME ────────────────────────────
-updateScrollProgress("home");
 
 // ── KEYBOARD ACCESSIBILITY ────────────────────────────────────
 document.addEventListener("keydown", e => {
@@ -407,10 +600,3 @@ document.addEventListener("keydown", e => {
     if (chatOpen) setChatOpen(false);
   }
 });
-
-// ── TOUCH: Prevent body scroll when drawer is open ───────────
-document.addEventListener("touchmove", e => {
-  if (drawer.classList.contains("open")) {
-    if (!drawer.contains(e.target)) e.preventDefault();
-  }
-}, { passive: false });
